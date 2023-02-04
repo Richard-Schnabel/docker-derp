@@ -116,7 +116,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/okraj_button"
                 android:padding="10dp"
-                android:text="Filtr: Různé"
+                android:text="Filtr: Žádný"
                 android:textAllCaps="false"
                 android:textColor="@color/tmave_modra"
                 android:textSize="20sp"

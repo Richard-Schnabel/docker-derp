@@ -112,6 +112,9 @@ public class Main extends AppCompatActivity {
 
             }
         });
+
+        //nakonec změn filter button text
+        zmenFilterButtonText();
     }
 
     private void openFilterByDialog() {
@@ -154,7 +157,7 @@ public class Main extends AppCompatActivity {
                 recyclerView.setAdapter(adapter);
 
                 //zmeň filter button text
-                filterBtn.setText("Filtr: Čas");
+                zmenFilterButtonText();
             }
         });
         filterByDate.addTextChangedListener(new TextWatcher() {
@@ -175,7 +178,7 @@ public class Main extends AppCompatActivity {
                 recyclerView.setAdapter(adapter);
 
                 //zmeň filter button text
-                filterBtn.setText("Filtr: Datum");
+                zmenFilterButtonText();
             }
         });
         filterByJazyk.addTextChangedListener(new TextWatcher() {
@@ -196,7 +199,7 @@ public class Main extends AppCompatActivity {
                 recyclerView.setAdapter(adapter);
 
                 //zmeň filter button text
-                filterBtn.setText("Filtr: Jazyk");
+                zmenFilterButtonText();
             }
         });
         filterByRate.addTextChangedListener(new TextWatcher() {
@@ -217,12 +220,39 @@ public class Main extends AppCompatActivity {
                 recyclerView.setAdapter(adapter);
 
                 //zmeň filter button text
-                filterBtn.setText("Filtr: Hodnocení");
+                zmenFilterButtonText();
             }
         });
 
         //zobraz alert
         dialog.show();
+    }
+
+    private void zmenFilterButtonText() {
+
+        //zjisti nastavvení filtrů
+        Preferences prefs = Preferences.userNodeForPackage(this.getClass());
+
+        //pro zjednodušení přednastav proměnné
+        boolean fD = Objects.equals(prefs.get("filterDate", ""), "");
+        boolean fR = Objects.equals(prefs.get("filterRate", ""), "");
+        boolean fJ = Objects.equals(prefs.get("filterJazyk", ""), "");
+        boolean fT = Objects.equals(prefs.get("filterTime", ""), "");
+
+        //nastav text podle kombinací filtrů
+        if (fD && fR && fJ && fT) {
+            filterBtn.setText("Filtr: Žádný");
+        } else if (!fD && fR && fJ && fT) {
+            filterBtn.setText("Filtr: Datum");
+        } else if (fD && !fR && fJ && fT) {
+            filterBtn.setText("Filtr: Hodnocení");
+        } else if (fD && fR && !fJ && fT) {
+            filterBtn.setText("Filtr: Jazyk");
+        } else if (fD && fR && fJ && !fT) {
+            filterBtn.setText("Filtr: Čas");
+        } else {
+            filterBtn.setText("Filtr: Různé");
+        }
     }
 
     private void openSortByDialog() {

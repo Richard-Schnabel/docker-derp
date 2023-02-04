@@ -1,3 +1,3 @@
 #!/bin/bash
 
-./mvnw derp:run -Dderp.run.arguments=--server.port=80
+./mvnw spring-boot:run -Dspring-boot.run.arguments=--server.port=80
